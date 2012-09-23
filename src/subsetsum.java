@@ -19,17 +19,17 @@ public class subsetsum {
 			int desired = s.nextInt();
 			int num_available = s.nextInt();
 			
-			List<Double> available = new ArrayList<Double>();
+			List<Long> available = new ArrayList<Long>();
 			for (int i = 0 ; i < num_available; i ++)
-				available.add(s.nextDouble());
+				available.add(s.nextLong());
 			
-			List<Double> sums = possible_sums(available);
+			List<Long> sums = possible_sums(available);
 			Collections.sort(sums);
 			
 			//for (int n: sums)
 			//	System.out.println(n);
 			
-			double optimal = -1;
+			long optimal = -1L;
 			int i = 0;
 			while (i < sums.size()) {
 				if (sums.get(i) >= desired) {
@@ -42,17 +42,17 @@ public class subsetsum {
 			if (optimal == -1)
 				System.out.println("IMPOSSIBLE");
 			else
-				System.out.println((int) optimal);
+				System.out.println(optimal);
 		}
 	}
 	
-	private static List<Double> possible_sums(List<Double> nums) {
-		List<Double> result = new ArrayList<Double>();
+	private static List<Long> possible_sums(List<Long> nums) {
+		List<Long> result = new ArrayList<Long>();
 		if (nums.size() == 1)
 			result.add(nums.get(0));
 		else { 
 			result.add(nums.get(0));
-			List<Double> ps = possible_sums(nums.subList(1, nums.size()));
+			List<Long> ps = possible_sums(nums.subList(1, nums.size()));
 			result.addAll(ps);
 			for (int i = 0; i < ps.size(); i++)
 				result.add(nums.get(0) + ps.get(i));
