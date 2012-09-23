@@ -1,32 +1,26 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class cycle {
 
-	private Map<Integer, List<int[]>> map;
-
 	public static void main(String[] args) {
 
 		cycle mycycle = new cycle();
-		mycycle.map = new HashMap<Integer, List<int[]>>();
 
 		Scanner s = new Scanner(System.in);
 
 		int problems = s.nextInt();
 		int results[] = new int[problems];
-		int num, size, max, temp, tempMax;
+		int num, size, max, temp;
 
 		for (int i = 0; i < problems; i++) {
 			num = s.nextInt();
 			size = s.nextInt();
 			max = s.nextInt();
 
-			List<int[]> perms = mycycle.get_permutations(size);
-			for (int k = 0; k < perms.size(); k++) {
-				int[] permutation = perms.get(k);
+			permutation_list perms = mycycle.new permutation_list(size);
+			while (perms.hasNext()) {
+				int[] permutation = perms.next();
 				temp = permutation[0];
 				for (int j = 0; j <= permutation.length; j++) {
 					if (temp == max) {
@@ -43,34 +37,78 @@ public class cycle {
 		}
 	}
 
-	private List<int[]> get_permutations(int n) {
-		if (map.containsKey(n))
-			return map.get(n);
+	private class permutation_list implements Iterator<int[]> {
 
-		List<int[]> results = new ArrayList<int[]>();
-		if (n == 1) {
-			results.add(new int[] { 1 });
-		} else {
+		int[] current;
+		boolean exhausted = false;
+		boolean started = false;
+		int size;
 
-			List<int[]> sub_r = get_permutations(n - 1); // [1,2],[2,1]
-			for (int i = 0; i < sub_r.size(); i++) {
-				int[] sub_list = sub_r.get(i); // [2,1]
-				for (int j = 0; j < n; j++) {
-					int[] result = new int[n]; // [3,2,1]
-					for (int k = 0; k < j; k++) {
-						result[k] = sub_list[k];
-					}
-					result[j] = n;
-					for (int k = j + 1; k < n; k++) {
-						result[k] = sub_list[k - 1];
-					}
-					results.add(result);
-				}
+		public permutation_list(int n) {
+			this.size = n;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return !this.exhausted;
+		}
+
+		@Override
+		public int[] next() {
+			if (started == false) {
+				this.current = new int[size];
+				for (int i = 0; i < size; i++)
+					this.current[i] = i + 1;
+				this.started = true;
+				return this.current;
+			}
+			int[] new_digits = new int[current.length];
+			for (int i = 0; i < current.length; i++)
+				new_digits[i] = current[i];
+
+			int n = new_digits.length - 1;
+
+			int j = n - 1;
+			while (current[j] > current[j + 1])
+				j--;
+
+			int k = n;
+			while (current[j] > current[k])
+				k--;
+
+			int temp = new_digits[j];
+			new_digits[j] = new_digits[k];
+			new_digits[k] = temp;
+
+			int r = n;
+			int s = j + 1;
+
+			while (r > s) {
+				temp = new_digits[r];
+				new_digits[r] = new_digits[s];
+				new_digits[s] = temp;
+				r--;
+				s++;
 			}
 
+			int j1 = new_digits.length - 2;
+			while (new_digits[j1] > new_digits[j1 + 1]) {
+				if (j1 == 0) {
+					this.exhausted = true;
+					break;
+				}
+				j1--;
+			}
+			current = new_digits;
+			return new_digits;
 		}
-		map.put(n, results);
-		return results;
+
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+
+		}
+
 	}
 
 }
