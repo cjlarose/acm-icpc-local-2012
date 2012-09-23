@@ -21,8 +21,10 @@ public class cycle {
 				List<Integer> permutation = perms.get(k);
 				temp = permutation.get(0);
 				for(int j = 0; j <= permutation.size(); j++) {
-					if(temp == max)
+					if(temp == max) {
 						results[i]++;
+						break;
+					}
 					temp = permutation.get(temp-1);
 				}
 			}
