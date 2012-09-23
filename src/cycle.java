@@ -1,9 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class cycle {
 	
 	public static void main(String[] args) {
 		Scanner s = new Scanner(System.in);
+		
+		List<List<Integer>> perms = get_permutations(3);
+		for (List<Integer> p: perms) {
+			String str = "";
+			for (Integer n: p)
+				str += n;
+			System.out.println(str);
+		}
 		
 		int problems = s.nextInt();
 		int results[] = new int[problems];
@@ -71,6 +81,27 @@ public class cycle {
 		}
 		
 		return true;
+	}
+	
+	private static List<List<Integer>> get_permutations(int n) {
+		List<List<Integer>> results = new ArrayList<List<Integer>>();
+		if (n == 1) {
+			List<Integer> result = new ArrayList<Integer>();
+			result.add(1);
+			results.add(result);
+		} else {
+			List<List<Integer>> sub_r = get_permutations(n-1); // [1,2],[2,1]
+			for (int i = 0; i < sub_r.size(); i++) {
+				List<Integer> sub_list = sub_r.get(i); // [2,1]
+				for (int j = 0; j < n; j++) {
+					List<Integer> result = new ArrayList<Integer>(); // [3,2,1]
+					result.addAll(sub_list);
+					result.add(j, n);
+					results.add(result);
+				}
+			}
+		}
+		return results;
 	}
 	
 	
