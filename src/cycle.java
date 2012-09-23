@@ -62,9 +62,8 @@ public class cycle {
 				this.started = true;
 				return this.current;
 			}
-			int[] new_digits = new int[current.length];
-			for (int i = 0; i < current.length; i++)
-				new_digits[i] = current[i];
+			
+			int[] new_digits = current.clone();
 
 			int n = new_digits.length - 1;
 
