@@ -7,14 +7,15 @@ public class rascal {
 
 		Scanner s = new Scanner(System.in);
 		int[] results;
-
-		int problem, n = 0, m = 0; // n = rowNumber m = index
+		//int problem;
+		int n = 0, m = 0; // n = rowNumber m = index
 		
 		int numProblems = s.nextInt();
 		results = new int[numProblems];
 		
 		for(int i = 0; i < numProblems; i++) {
-			problem = s.nextInt();
+			//problem = s.nextInt();
+			s.nextInt();
 			n = s.nextInt();
 			m = s.nextInt();
 			

@@ -12,11 +12,13 @@ public class characters {
 		int numSets = s.nextInt();
 		
 		allStrings = new String[numSets];
-		int line, repeat;
+		//int line;
+		int repeat;
 		String string;
 		
 		for(int i = 0; i < numSets; i++) {
-			line = s.nextInt();
+			//line = s.nextInt();
+			s.nextInt();
 			repeat = s.nextInt();
 			string = s.next();
 			allStrings[i] = "";

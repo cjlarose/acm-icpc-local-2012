@@ -20,21 +20,26 @@ public class meganominoes {
 			sums = new int[numSums];
 			results[i] = new int[numSums];
 			
+			// Initialize all meganominoes
 			for(int j = 0; j < numMegas; j++)
 				megas[j] = new mega(s.nextInt(), s.nextInt());
 			
+			// Initialize all possible sums
 			for(int j = 0; j < numSums; j++) {
 				results[i][j] = 0;
 				sums[j] = s.nextInt();
 			}
 				
+			// For each meganomino O(n)
 			for(int j = 0; j < megas.length; j++) {
-				for(int k = j+1; k < megas. length; k++) {
+				// Add it to every further meganomino O(Sum1..n)
+				for(int k = j+1; k < megas.length; k++) {
 					
 					temp = megas[j].connects(megas[k]);
 					
 					if(temp == -1) continue;
 					
+					// Check each pair to see if their sum is in sums O(m)
 					for(int l = 0; l < sums.length; l++) {
 						if(temp == sums[l]) {
 							results[i][l]++;

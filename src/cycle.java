@@ -11,10 +11,12 @@ public class cycle {
 
 		int problems = s.nextInt();
 		int results[] = new int[problems];
-		int num, size, max, temp;
+		int size, max, temp;
+		//int num;
 
 		for (int i = 0; i < problems; i++) {
-			num = s.nextInt();
+			//num = s.nextInt();
+			s.nextInt();
 			size = s.nextInt();
 			max = s.nextInt();
 
